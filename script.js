@@ -62,5 +62,77 @@ const logAtMost5 = (n) => {
 	}
 };
 
-const output = countUpAndDown(10);
+// Space Complexity in JS (rule of thumb) //
+// Most primitives (booleans, numbers, undefined, null) are constant space
+// Strings require O(n) space (where n is the string length)
+// Reference type are generally O(n), where n is the length (for arrays) or the number of keys (for objects)
+
+/* Big O of Objects
+Insertion - O(1)
+Removal - O(1)
+Searching - O(n)
+Access - O(1)
+
+--Big O of Object Methods--
+Object.keys - O(n)
+Object.values - O(n)
+Objects.entries - O(n)
+hasOwnProperty - O(n)
+*/
+
+// let instructor = {
+// 	firstname: "kelly",
+// 	isInstructor: true,
+// 	favoriteNumbers: [1, 2, 3, 4],
+// };
+
+// console.log(instructor.hasOwnProperty("firstname"));
+
+/* --Big O of Arrays--
+Insertion - depends
+when adding its constant time. the prolem is when we try to insert in the beginning because we have to rearranging (re indexing) to the whole array
+
+Removal - Depends
+Remoing from beginning gives the same problem because the order has to be rearranged
+** push() and pop() is always faster than shift() and unshift()
+
+Searching - O(n)
+the search grows as more items are in the array
+Access - O(1)
+
+-push - O(1)
+-pop - O(1)
+-shift - O(n)
+-unshift - O(n)
+-concat - O(n)
+-slice - O(n)
+-splice - O(n)
+-sort - O(n*logn)
+-forEach/map/filter/reduce/etc. - O(n)
+*/
+
+//Write a function which takes in a string and returns counts of each character in the string
+
+// charCount("hello"); // {h:1, e:1, l:2 o:1}
+
+function charCount(str) {
+	// make object to return at end
+	let result = {};
+	// loop over string for each character...
+	for (let i = 0; i < str.length; i++) {
+		let char = str[i].toLowerCase();
+		// if the char is a number/letter AND key in object, add one to count
+		if (result[char] > 0) {
+			result[char]++;
+			// if the char is a number/letter AND not in object, add it and set value to 1
+		} else {
+			result[char] = 1;
+		}
+	}
+	//if characer i sosmething else (space, period, etc.) dont do anything
+	// return object at end
+	return result;
+}
+
+const output = charCount("Hi there!");
 console.log(output);
