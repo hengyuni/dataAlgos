@@ -134,5 +134,150 @@ function charCount(str) {
 	return result;
 }
 
-const output = charCount("Hi there!");
+// function charCount2(str) {
+// 	let obj = {};
+// 	for (let i = 0; i < str.length; i++) {
+// 		let char = str[i].toLowerCase();
+// 		if (/[a-z0-9]/.test(char)) {
+// 			if (obj[char] > 0) {
+// 				obj[char]++;
+// 			} else {
+// 				obj[char] = 1;
+// 			}
+// 		}
+// 		return obj;
+// 	}
+// }
+
+// function charCounter(str) {
+// 	let obj = {};
+// 	for (let char of str) {
+// 		char = char.toLowerCase();
+// 		if (/[a-z0-9]/.test(char)) {
+// 			obj[char] = ++obj[char] || 1;
+// 		}
+// 		return obj;
+// 	}
+// }
+
+const charCounter = (str) => {
+	let obj = {};
+	for (let char of str) {
+		char = char.toLowerCase();
+		if (isAlphaNumeric(char)) {
+			obj[char] = ++obj[char] || 1;
+		}
+	}
+	return obj;
+};
+
+const isAlphaNumeric = (char) => {
+	let code = char.charCodeAt(0);
+	if (
+		!(code > 47 && code < 58) && // numeric (0-9)
+		!(code > 64 && code < 91) && // upper alpha (A-Z)
+		!(code > 96 && code < 123) // lower alpha (a-z)
+	) {
+		return false;
+	}
+	return true;
+};
+
+///// RECAP!!! //////
+// understand problem
+// explor concrete examples
+// break it down
+// sole/simplify
+// look back and refactor
+
+//////////////////////////////////////////
+// SECTION 2.6 Problem solving patters //
+/////////////////////////////////////////
+
+// Frequency Counter //
+/* Uses objects ot sets to collect values/frequency of values */
+/* Can often avoid the need for a nested loops or O(N^2) operations with arrays/strings */
+
+// write a function called same, accpts 2 arrays, functions hould return true is every value in the array has its corresponding value squared in the second array. the frequency of values must be the same
+
+// O(n^2) solution **Naive Solution**
+function same(arr1, arr2) {
+	if (arr1.length !== arr2.length) {
+		return false;
+	}
+	for (let i = 0; i < arr1.length; i++) {
+		let correctIndex = arr2.indexOf(arr1[i] ** 2); // indexOf is O(n) because its technically looping, thus making it a nested loop.
+		if (correctIndex === -1) {
+			return false;
+		}
+		console.log(arr2);
+		arr2.splice(correctIndex, 1);
+	}
+	return true;
+}
+
+// O(n) solution
+function same2(arr1, arr2) {
+	if (arr1.length !== arr2.length) {
+		return false;
+	}
+	let frequencyCounter1 = {};
+	let frequencyCounter2 = {};
+	for (let val of arr1) {
+		frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
+	}
+	for (let val of arr2) {
+		frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
+	}
+	for (let key in frequencyCounter1) {
+		if (!(key ** 2 in frequencyCounter2)) {
+			return false;
+		}
+		if (frequencyCounter2[key ** 2] !== frequencyCounter1[key]) {
+			return false;
+		}
+	}
+	console.log(frequencyCounter1);
+	console.log(frequencyCounter2);
+	return true;
+}
+
+// Valid Anagram
+
+function validAnagram(first, second) {
+	if (first.length !== second.length) {
+		return false;
+	}
+
+	const lookup = {};
+
+	for (let i = 0; i < first.length; i++) {
+		let letter = first[i];
+		// if letter exists, increment, otherwise set to 1
+		lookup[letter] ? lookup[letter]++ : (lookup[letter] = 1);
+	}
+	for (let i = 0; i < second.length; i++) {
+		let letter = second[i];
+		// cant find letter or letter is zero then its not an anagram
+		if (!lookup[letter]) {
+			console.log(lookup);
+			return false;
+		} else {
+			lookup[letter]--;
+		}
+	}
+	console.log(lookup);
+	return true;
+}
+
+//////////////////////////
+
+// MULTIPLE POINTERS //
+// creating ponters or values that correspond to an index or position and move towards the beginning end or middle based on a certain condition
+// ** very efficient for solving problems with minimal space complexity as well
+
+// sum zero naive **O(n^2)
+// sum zero refactor **O(n)
+
+const output = validAnagram("anagramsss", "nagaramsss");
 console.log(output);
