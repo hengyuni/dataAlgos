@@ -190,9 +190,9 @@ const isAlphaNumeric = (char) => {
 // sole/simplify
 // look back and refactor
 
-//////////////////////////////////////////
-// SECTION 2.6 Problem solving patters //
 /////////////////////////////////////////
+// SECTION 5: Problem solving patters //
+////////////////////////////////////////
 
 //  PATTERN 1: FREQUENCY COUNTER //
 /* Uses objects ot sets to collect values/frequency of values */
@@ -370,5 +370,46 @@ function maxSubarraySum2(arr, num) {
 	return maxSum;
 }
 
-const output = maxSubarraySum([2, 6, 9, 2, 1, 8, 5, 6, 3], 3);
+// PATTERN 4: DIVIDE AND CONQUER //
+// this pattern involves dividing a data set into smaller chuncks and then repeating a process with a subset of data.
+// this pattern can tremendously *decrease time complexity*
+
+// Given a sorted array of integers, write a function called search, that accepts a value and returns the index where the value passed to the function is located. If the value is not found, return -1
+/*
+search([1,2,3,4,5,6], 4) // 3
+search([1,2,3,4,5,6], 6) // 5
+search([1,2,3,4,5,6], 11) // -1
+*/
+
+// naive solution *O(n)* though
+function search(arr, val) {
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] === val) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+// refactor log(n) solution
+function search2(arr, val) {
+	let min = 0;
+	let max = arr.length - 1;
+
+	while (min <= max) {
+		let middle = Math.floor((min + max) / 2);
+		let currentElement = arr[middle];
+
+		if (arr[middle] < val) {
+			min = middle + 1;
+		} else if (arr[middle] > val) {
+			max = middle - 1;
+		} else {
+			return middle;
+		}
+	}
+	return -1;
+}
+
+const output = search2([1, 2, 3, 4, 5, 6], 6);
 console.log(output);
