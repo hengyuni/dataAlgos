@@ -16,16 +16,16 @@
 
 // algo 3
 const countUpAndDown = (n) => {
-	console.log("Going Up!");
+	console.log('Going Up!');
 	for (let i = 0; i < n; i++) {
 		// O(n) --> as n grows, operations also grow due to the loop
 		console.log(i);
 	}
-	console.log("At the top! \nGoing Down...");
+	console.log('At the top! \nGoing Down...');
 	for (let j = n - 1; j >= 0; j--) {
 		console.log(j); //O(n)
 	}
-	console.log("Back on down");
+	console.log('Back on down');
 }; // because its not nested its still running the O(n) because its not doubling and doing it seperately
 
 // algo 4 nested loops
@@ -411,5 +411,17 @@ function search2(arr, val) {
 	return -1;
 }
 
-const output = search2([1, 2, 3, 4, 5, 6], 6);
+// change string to camel case
+function toCamelCase(str) {
+	let strArr = str.split();
+}
+
+const output = findNumber('REUONNOINFE');
+console.log(output);
+
+function toCamelCase(str) {
+	let strArr = str.split();
+}
+
+const output = findNumber('REUONNOINFE');
 console.log(output);
